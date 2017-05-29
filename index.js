@@ -1,15 +1,16 @@
 var graph, edges, nodes, s;
+var speed = 10;
 
 function drawStep(steps, step) {
-    if (steps.length <= step) {
+    if (steps.length <= step || step < 0) {
         return;
     }
 
-    updateEdge(steps[step][0], steps[step][1], steps[step][2]);
-    setTimeout(function(){drawStep(steps, step + 1);}, 100);
+    updateGraph(steps[step][0], steps[step][1], steps[step][2]);
+    setTimeout(function(){drawStep(steps, step + 1);}, speed);
 }
 
-function updateEdge(element, attrib, type) {
+function updateGraph(element, attrib, type) {
     switch (type) {
         case 0:
             element.color = attrib;
@@ -171,7 +172,7 @@ function main() {
     }
 
     if (trucks.length < cargos.length) {
-        console.log("Number of trucks should be greater or equal to the number of cargos!");
+        console.log("Number of workers should be greater or equal to the number of tasks!");
     } else {
         initGraph(cargos, trucks);
         result = drawAlgorithm(cargos, trucks, edges, nodes, cargos.length, trucks.length);
