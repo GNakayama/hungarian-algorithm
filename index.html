@@ -4,24 +4,52 @@
         <script src="./lib/hungarian.algorithm.js"></script>
         <script src="./index.js"></script>
         <!-- END SIGMA IMPORTS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <div id="container">
-            <style>
-                #graph-container {
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                }
-            </style>
-            <div id="graph-container"></div>
+        <div style="position: relative">
+            <div id="container">
+                <style>
+#graph-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 90%;
+}
+                </style>
+                <div id="graph-container"></div>
+            </div>
+            <div id="controller">
+                <style>
+#controller {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+}
+
+#controller > div {
+    margin: auto;
+    width: 268px;
+}
+
+#controller button {
+    height: 32px;
+    width: 64px;
+}
+                </style>
+                <div>
+                    <button onClick="backward()" id="backward" type="button" disabled><i class="fa fa-backward" aria-hidden="true"></i></button>
+                    <button onClick="stop()" id="stop" type="button" disabled><i class="fa fa-stop" aria-hidden="true"></i></button>
+                    <button onClick="play()" id="play" type="button"><i class="fa fa-play" aria-hidden="true"></i></button>
+                    <button onClick="forward()" id="forward" type="button"><i class="fa fa-forward" aria-hidden="true"></i></button>
+                </div>
+            </div>
         </div>
+        <script src="./controller.js"></script>
         <script>
-            main();
+main();
         </script>
     </body>
 </html>

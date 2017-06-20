@@ -1,26 +1,73 @@
 var graph, edges, nodes, s;
 var speed = 10;
+var token;
+var result;
+var step = 0;
+var reverseSteps = [];
 
-function drawStep(steps, step) {
+function drawStep(steps) {
     if (steps.length <= step || step < 0) {
+        speed = 10;
+        clearTimeout(token);
         return;
     }
 
-    updateGraph(steps[step][0], steps[step][1], steps[step][2]);
-    setTimeout(function(){drawStep(steps, step + 1);}, speed);
+    if (speed < 0) {
+        reverseUpdateGraph(reverseSteps[step][0], reverseSteps[step][1], reverseSteps[step][2]);
+        step -= 1;
+    } else {
+        updateGraph(steps[step][0], steps[step][1], steps[step][2]);
+        step += 1;
+    }
+
+    token = setTimeout(function(){drawStep(steps);}, Math.abs(speed));
 }
 
 function updateGraph(element, attrib, type) {
+    var reverseStep = [element, attrib, type];
+
     switch (type) {
         case 0:
+            reverseStep[1] = element.color;
             element.color = attrib;
             graph.addEdge(element);
+            break;
+        case 1:
+            reverseStep[1] = element.label;
+            element.label = attrib.toString();
+            break;
+        case 2:
+            graph.dropEdge(element.id);
+            break;
+        case 3:
+            reverseStep[1] = element.color;
+            element.color = attrib;
+            break;
+        case 4:
+            graph.dropEdge(element.id);
+            reverseStep[1] = element.color;
+            element.color = attrib;
+            graph.addEdge(element);
+            break;
+    }
+
+    if (step >= reverseSteps.length) {
+        reverseSteps.push(reverseStep);
+    }
+
+    s.refresh();
+}
+
+function reverseUpdateGraph(element, attrib, type) {
+    switch (type) {
+        case 0:
+            graph.dropEdge(element.id);
             break;
         case 1:
             element.label = attrib.toString();
             break;
         case 2:
-            graph.dropEdge(element.id);
+            graph.addEdge(element);
             break;
         case 3:
             element.color = attrib;
@@ -31,6 +78,7 @@ function updateGraph(element, attrib, type) {
             graph.addEdge(element);
             break;
     }
+
     s.refresh();
 }
 
@@ -73,7 +121,6 @@ function initGraph(tasks, workers) {
                 'dist': i*j,
                 'source': 'Task' + i,
                 'target': 'Worker' + j,
-                'size': 1,
                 'color': '#ccc'
             });
         }
@@ -91,6 +138,28 @@ function initGraph(tasks, workers) {
     for (var i = 0; i < edges.length; i++) {
         graph.dropEdge(edges[i].id);
     }
+
+    s.refresh();
+}
+
+function resetGraph() {
+    var drawEdges = graph.edges();
+
+    for (var i = 0; i < nodes.length; i++) {
+        nodes[i].label = '' + 0;
+
+        if (i < m) {
+            nodes[i].color = '#600';
+        } else {
+            nodes[i].color = '#006';
+        }
+    }
+
+    for (var i = 0; i < drawEdges.length; i++) {
+        graph.dropEdge(drawEdges[i].id);
+    }
+
+    s.refresh();
 }
 
 function main() {
@@ -177,7 +246,5 @@ function main() {
         initGraph(cargos, trucks);
         result = drawAlgorithm(cargos, trucks, edges, nodes, cargos.length, trucks.length);
         console.log(result);
-
-        setTimeout(function(){drawStep(result[2], 0);}, 1000);
     }
 }
