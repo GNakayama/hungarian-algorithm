@@ -220,7 +220,11 @@ function main() {
     cargos = cargos.map(function(cargo){return cargo[0].split(',');});
 
     trucksAux = Array.from(trucks);
+<<<<<<< Updated upstream
     for (var i = 0; i < 0; i++) {
+=======
+    for (var i = 0; i < 6; i++) {
+>>>>>>> Stashed changes
         for (var j = 0; j < trucksAux.length; j++) {
             var newTruck = Array.from(trucks[j]);
             newTruck[0] += i;
@@ -231,7 +235,11 @@ function main() {
     }
 
     cargosAux = Array.from(cargos);
+<<<<<<< Updated upstream
     for (var i = 0; i < 1; i++) {
+=======
+    for (var i = 0; i < 6; i++) {
+>>>>>>> Stashed changes
         for (var j = 0; j < cargosAux.length; j++) {
             var newCargo = Array.from(cargos[j]);
             //newCargo[3] = str(float(newCargo[3]) + randint(1, 1000)/1000);
