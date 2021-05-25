@@ -92,8 +92,7 @@ function initGraph(tasks, workers) {
     };
 
 
-    for (i = 0; i < N; i++) {
-        if (i < m) {
+    for (i = 0; i < m; i++) {
             g.nodes.push({
                 'id': 'Task' + i,
                 'label': '0',
@@ -102,16 +101,17 @@ function initGraph(tasks, workers) {
                 'size': 0.1,
                 'color': '#600'
             });
-        } else {
+    }
+
+    for (i = 0; i < n; i++) {
             g.nodes.push({
-                'id': 'Worker' + (i - m),
+                'id': 'Worker' + i,
                 'label': '0',
                 'x': 0.9,
-                'y': 2*(1.0/(n - 1))*(i - m),
+                'y': 2*(1.0/(n - 1))*i,
                 'size': 0.1,
                 'color': '#006'
             });
-        }
     }
 
     for (var i = 0; i < m; i++) {
@@ -163,65 +163,18 @@ function resetGraph() {
 }
 
 function main() {
-    var workers = [
-        "Hartford Plastics Incartford",
-        "Beyond Landscape & Design Llcilsonville",
-        "Empire Of Dirt Llcquality",
-        "James Haas Al Haas Shelly Haasairfield",
-        "Ibrahim Chimandalpharetta",
-        "John Bianchiake Havasu City",
-        "Macomb Iron Llchesterfield",
-        "Robert Robertsonairhope",
-        "Viking Products Of Austin Incustin",
-        "Arachus Incashville",
-        "Dawna L Zanderppleton",
-        "Michael J Geenenaukauna",
-        "Peet'S Tree Serviceinterport",
-        "Filippo Lumaroallston",
-        "Jorge L Denisollywood",
-        "Ramiro Castilloucson",
-        "Paul J Krez Companyorton Grove",
-        "Sullivans' Homestead Inclympia",
-        "Jeffrey A Shepardypsum",
-        "Wayne E Bollinauvoo",
-        "Gary Lee Wilcoxpencer",
-        "Jacques N Faucherochester",
-        "Sidhu Trucking Incarrisburg",
-        "Edmon'S Unique Furniture & Stone Gallery Inc.Os Angeles",
-        "Ricardo Juradoacramento",
-        "Turenne Auto Body Llchorp",
-        "Allen R Pruittrown City",
-        "Kjellberg'S Carpet Oneuffalo",
-        "Dupree Testing Services Incutchinson",
-        "Vincent Rodriguezansas City",
-        "Loren Martinrand Junction",
-        "I N H Relocation Services Incoodbridge",
-        "Arrow Towing Llcent",
-        "Scott Cassidylanchardville",
-        "Como Construction Llcottstown",
-        "High Pines Farm Llcontello",
-        "Jwj Interests Incealy",
-        "Efrain Morales Diazorwalk",
-        "Rubye Hunterincolnton",
-        "Jevin Q Watsonillsboro",
-        "Martinez Transport Llcdaho Falls",
-        "Jeffery Allan Luiacine",
-        "Fish-Bones Towingew York",
-        "Wisebuys Stores Incouverneur"
-    ];
+    var numberOfWorkers = 50;
+    var numberOfTasks = 5;
+    var tasks = [];
+    var workers = [];
 
-    var tasks = [
-        "Light bulbs",
-        "Recyclables",
-        "Apples",
-        "Wood",
-        "Cell phones",
-        "Wood",
-        "Oranges"
-    ]
+    for (var i = 0; i < numberOfWorkers; i++) {
+      workers.push(Math.floor(Math.random() * 1000) + 1);
+    }
 
-    workers = workers.map(function(truck){return truck[0].split(',');});
-    tasks = tasks.map(function(cargo){return cargo[0].split(',');});
+    for (var i = 0; i < numberOfTasks; i++) {
+      tasks.push(Math.floor(Math.random() * 1000) + 1);
+    }
 
     workersAux = Array.from(workers);
     for (var i = 0; i < 0; i++) {
