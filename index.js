@@ -176,23 +176,6 @@ function main() {
       tasks.push(Math.floor(Math.random() * 1000) + 1);
     }
 
-    workersAux = Array.from(workers);
-    for (var i = 0; i < 0; i++) {
-        for (var j = 0; j < workersAux.length; j++) {
-            var newTruck = Array.from(workers[j]);
-            newTruck[0] += i;
-            workers.push(newTruck);
-        }
-    }
-
-    tasksAux = Array.from(tasks);
-    for (var i = 0; i < 1; i++) {
-        for (var j = 0; j < tasksAux.length; j++) {
-            var newCargo = Array.from(tasks[j]);
-            tasks.push(newCargo);
-        }
-    }
-
     if (workers.length < tasks.length) {
         console.log("Number of workers should be greater or equal to the number of tasks!");
     } else {
